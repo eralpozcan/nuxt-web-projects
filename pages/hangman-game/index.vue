@@ -37,12 +37,12 @@
 		</div>
 
 		<!-- Container for final message -->
-		<div class="popup-container" :style="{ display: [ isFailed ? 'flex' : 'none'] }">
+		<div class="popup-container" :style="{ display: [ isFailed || isWon ? 'flex' : 'none'] }">
 			<div class="popup">
 				<h2 class="final-message">
-          Unfortunately you lost. 😕
+          {{ isWon ? `Congratulations! You won! 😃`: `Unfortunately you lost. 😕` }}
         </h2>
-				<h3 class="final-message-reveal-word">
+				<h3 class="final-message-reveal-word" v-if="isFailed">
           {{ `...the word was: ${selectedWord}` }}
         </h3>
 				<button @click="playAgain">Play Again</button>
@@ -50,7 +50,7 @@
 		</div>
 
 		<!-- Notification -->
-		<div class="notification-container" :class="{'show': isShowNotification}">
+		<div class="notification-container" :class="{'show': isShowNotification}" :style="{'display': isShowNotification ? 'block':'none'}">
 			<p>You have already entered this letter</p>
 		</div>
 	</div>
@@ -67,7 +67,7 @@ useHead({
 	}
 })
 const words = ref(['application','programming','interface','wizard'])
-const selectedWord = ref(words.value[Math.floor(Math.random() * words.value.length)])
+const selectedWord = ref(words.value[Math.floor(Math.random() * words.value.length)].split(''))
 const playable = ref(true)
 const correctLetters = ref([])
 const wrongLetters = ref([])
@@ -84,7 +84,15 @@ function showNotification() {
 }
 
 function updateWrongLetters() {
+	figureParts.value.forEach((part, index) => {
+		const errors = wrongLetters.value.length;
 
+		if (index < errors) {
+			part.style.display = 'block';
+		} else {
+			part.style.display = 'none';
+		}
+	});
 }
 
 function selectWord() {
@@ -92,14 +100,18 @@ function selectWord() {
 }
 
 function playAgain() {
-  playable.value = false
+  playable.value = true
   correctLetters.value = []
   wrongLetters.value = []
+  updateWrongLetters()
   selectWord()
 }
 
 const isWon = computed(()=> {
-  if (correctLetters.value === selectWord.value) {
+  console.log("CorrectLetters", correctLetters.value)
+  let correctData = correctLetters.value.join("")
+  console.log("CorrectData",correctData)
+  if (correctData == selectedWord.value) {
     console.log("1")
   }
 })
@@ -115,23 +127,28 @@ onMounted(()=> {
   figureParts.value = document.querySelectorAll(".figure-part")
 })
 
+watch(correctLetters,()=> {
+  console.log(correctLetters)
+})
+
 useEventListener(document, 'keydown', (e) => {
   console.log(e.keyCode)
 	if(playable.value) {
 		if(e.keyCode >= 65 && e.keyCode <=90 || e.keyCode === 222){
 			const letter = e.key.toLowerCase()
       console.log(letter)
-      console.log(selectedWord.value.includes(letter))
+      console.log(selectedWord.value)
 			if (selectedWord.value.includes(letter)){
 				if (!correctLetters.value.includes(letter)) {
+          console.log('2')
+          console.log(typeof letter)
+          console.log(selectedWord.value.findIndex(letter))
 					correctLetters.value.push(letter)
 				} else showNotification()
-			} else {
-        if (!wrongLetters.value.includes(letter)) {
+			} else if (!wrongLetters.value.includes(letter)) {
           wrongLetters.value.push(letter)
           updateWrongLetters()
         } else showNotification()
-      }
 		} 
 	}
 });
@@ -147,7 +164,7 @@ useEventListener(document, 'keydown', (e) => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 80vh;
+  height: 100vh;
   margin: 0;
   overflow: hidden;
 }
