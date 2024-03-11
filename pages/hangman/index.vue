@@ -31,7 +31,6 @@
         <span v-for="(letter, index) in selectedWord" :key="index" class="letter">
           {{ correctLetters.includes(letter) ? letter : '' }}
 
-          {{ isWon }}
         </span>
       </div>
 		</div>
@@ -58,7 +57,7 @@
 
 <script setup>
 useSeoMeta({
-	title: 'Hangman Game',
+	title: 'Hangman',
   description: 'This is a simple Hangman-Game'
 })
 useHead({
@@ -72,8 +71,8 @@ const playable = ref(true)
 const correctLetters = ref([])
 const wrongLetters = ref([])
 const isShowNotification = ref(false)
-const popup = ref(null)
 const figureParts = ref(null)
+const isWon = ref(false)
 
 
 function showNotification() {
@@ -86,35 +85,23 @@ function showNotification() {
 function updateWrongLetters() {
 	figureParts.value.forEach((part, index) => {
 		const errors = wrongLetters.value.length;
-
-		if (index < errors) {
-			part.style.display = 'block';
-		} else {
-			part.style.display = 'none';
-		}
+		if (index < errors) part.style.display = 'block';
+		else part.style.display = 'none';
 	});
 }
 
 function selectWord() {
-  selectedWord.value = words[Math.floor(Math.random() * words.length)];
+  selectedWord.value = words.value[Math.floor(Math.random() * words.value.length)].split('');
 }
 
 function playAgain() {
   playable.value = true
   correctLetters.value = []
   wrongLetters.value = []
+  isWon.value = false
   updateWrongLetters()
   selectWord()
 }
-
-const isWon = computed(()=> {
-  console.log("CorrectLetters", correctLetters.value)
-  let correctData = correctLetters.value.join("")
-  console.log("CorrectData",correctData)
-  if (correctData == selectedWord.value) {
-    console.log("1")
-  }
-})
 
 const isFailed = computed(()=> {
   if (wrongLetters.value?.length === figureParts.value?.length) {
@@ -122,33 +109,26 @@ const isFailed = computed(()=> {
     return true
   } else return false
 })
-
 onMounted(()=> {
   figureParts.value = document.querySelectorAll(".figure-part")
 })
 
-watch(correctLetters,()=> {
-  console.log(correctLetters)
-})
-
 useEventListener(document, 'keydown', (e) => {
-  console.log(e.keyCode)
-	if(playable.value) {
+	if(playable.value && !isWon.value && !isFailed.value) {
 		if(e.keyCode >= 65 && e.keyCode <=90 || e.keyCode === 222){
 			const letter = e.key.toLowerCase()
-      console.log(letter)
-      console.log(selectedWord.value)
+      correctLetters.value = selectedWord.value.map(letter => correctLetters.value.includes(letter) ? letter : '')
 			if (selectedWord.value.includes(letter)){
 				if (!correctLetters.value.includes(letter)) {
-          console.log('2')
-          console.log(typeof letter)
-          console.log(selectedWord.value.findIndex(letter))
 					correctLetters.value.push(letter)
 				} else showNotification()
 			} else if (!wrongLetters.value.includes(letter)) {
           wrongLetters.value.push(letter)
           updateWrongLetters()
         } else showNotification()
+      if (correctLetters.value.join('') == selectedWord.value.join('')) {
+        isWon.value = true
+      }
 		} 
 	}
 });
