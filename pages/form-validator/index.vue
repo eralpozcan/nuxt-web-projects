@@ -5,13 +5,7 @@ useSeoMeta({
 useHead({
   htmlAttrs: {
     lang: 'en'
-  },
-  link: [
-    {
-      rel: 'stylesheet',
-      href: 'https://fonts.googleapis.com/css?family=Open+Sans&display=swap'
-    }
-  ]
+  }
 })
 
 const successColor = '#2ecc71'

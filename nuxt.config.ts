@@ -12,7 +12,5 @@ export default defineNuxtConfig({
     '/*/components/*': { redirect: '/' },
     '/*/assets/*': { redirect: '/' },
   },
-  modules: [
-    '@vueuse/nuxt',
-  ],
+  modules: ['@vueuse/nuxt', "@nuxt/fonts", "@nuxt/image"],
 })

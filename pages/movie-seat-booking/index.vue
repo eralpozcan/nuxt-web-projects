@@ -5,13 +5,7 @@ useSeoMeta({
 useHead({
   htmlAttrs: {
     lang: 'en'
-  },
-  link: [
-    {
-      rel: 'stylesheet',
-      href: 'https://fonts.googleapis.com/css?family=Lato&display=swap'
-    }
-  ]
+  }
 })
 
 const movies = ref([

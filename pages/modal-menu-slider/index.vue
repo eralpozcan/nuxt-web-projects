@@ -116,10 +116,6 @@ useHead({
 		lang: 'en'
 	},
 	link: [
-		{
-			rel: 'stylesheet',
-			href: 'https://fonts.googleapis.com/css?family=Lato&display=swap'
-		},
     {
 			rel: 'stylesheet',
 			href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css',

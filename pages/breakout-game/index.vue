@@ -1,3 +1,12 @@
+<template>
+  <div class="breakout">
+    <h1>Breakout!</h1>
+    <button class="btn rules-btn" @click="toggleRules">Show Rules</button>
+    <Sidebar :showContent="showContent" @toggleRules="toggleRules"/>
+    <canvas ref="canvas" id="canvas" width="800" height="600"></canvas>
+  </div>
+</template>
+
 <script setup>
 import Sidebar from './components/Sidebar.vue';
 import { useEventListener } from '@vueuse/core'
@@ -235,15 +244,6 @@ useEventListener(document, 'keyup', (e) => {
   keyUp(e);
 });
 </script>
-
-<template>
-  <div class="breakout">
-    <h1>Breakout!</h1>
-    <button class="btn rules-btn" @click="toggleRules">Show Rules</button>
-    <Sidebar :showContent="showContent" @toggleRules="toggleRules"/>
-    <canvas ref="canvas" id="canvas" width="800" height="600"></canvas>
-  </div>
-</template>
 
 <style scoped>
 

@@ -1,17 +1,17 @@
 <template>
   <div class="custom-video-player">
     <h1>Custom Video Player</h1>
-    <video ref="video" poster="./assets/poster.png">
+    <video ref="video" poster="./assets/poster.webp" preload="metadata">
       <source src="./assets/gone.mp4" type="video/mp4" />
     </video>
     <div class="controls">
-      <button class="btn" ref="play" @click="toggleVideoStatus()">
+      <button class="btn" ref="play" @click="toggleVideoStatus()" aria-label="play">
         <i class="fa fa-2x" :class="{ 'fa-play': !isPaused, 'fa-pause': isPaused }"></i>
       </button>
-      <button class="btn" ref="stop" @click="stopVideo()">
+      <button class="btn" ref="stop" @click="stopVideo()" aria-label="stop">
         <i class="fa fa-stop fa-2x"></i>
       </button>
-      <input type="range" ref="progress" class="progress" min="0" max="100" step="0.1" value="0" />
+      <input type="range" ref="progress" class="progress" min="0" max="100" step="0.1" value="0" aria-label="progress" />
       <span class="timestamp" ref="timestamp">00:00</span>
     </div>
   </div>
@@ -28,13 +28,7 @@ useHead({
   link: [
     {
       rel: 'stylesheet',
-      href: 'https://fonts.googleapis.com/css?family=Questrial&display=swap'
-    },
-    {
-      rel: 'stylesheet',
-      href: 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
-      integrity: 'sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN',
-      crossorigin: 'anonymous'
+      href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css',
     }
   ]
 })
@@ -95,6 +89,7 @@ useEventListener('change', setVideoProgress, progress)
   align-items: center;
   justify-content: center;
   margin: 0;
+  min-height: 100vh;
 }
 
 
@@ -113,12 +108,12 @@ h1 {
 .controls {
   background: #333;
   width: 60%;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
+  margin: 10px;
 }
 
 .controls .btn {
