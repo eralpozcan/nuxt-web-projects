@@ -42,12 +42,20 @@
 
 <script setup>
 import { useStorage } from '@vueuse/core'
+useSeoMeta({
+	title: 'Expense Tracker',
+  description: 'This is a simple Expense Tracker'
+})
+useHead({
+	htmlAttrs: {
+		lang: 'en'
+	}
+})
 
 const textInput = ref('')
 const amountInput = ref('')
 const transactions = ref([])
 const amounts = ref([])
-
 const state = useStorage('expense-tracker', transactions, localStorage)
 
 watchEffect(()=> {
@@ -87,11 +95,8 @@ function removeTransaction(transactionId){
 }
 
 onMounted(() => {
-  if (transactions.value == null) {
-    transactions.value = state.value
-  }
+  if (transactions.value == null) transactions.value = state.value
 })
-
 </script>
 
 <style scoped>
