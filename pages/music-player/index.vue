@@ -48,7 +48,6 @@ useHead({
 	]
 })
 
-
 const songList = ref([
   {
     id: 1,
@@ -104,15 +103,12 @@ function loadSong(songIndex,changed) {
 function previewSong() {
   let prevSong = currentSong.value.id - 1
   if (prevSong <= 0) prevSong = songList.value.length - 1
-
   loadSong(prevSong, true)
 }
 
 function nextSong() {
   let nextSongIndex = currentSong.value.id + 1
-  if (nextSongIndex > songList.value.length) {
-    nextSongIndex = 0
-  } 
+  if (nextSongIndex > songList.value.length) nextSongIndex = 0
   loadSong(nextSongIndex,true)
 }
 
@@ -180,8 +176,6 @@ watch(audio, () => {
   audio.value.addEventListener('timeupdate', updateProgress)
   //audio.value.addEventListener('timeupdate', duringTime)
 })
-
-
 onBeforeMount(() => {
   loadSong()
 })
