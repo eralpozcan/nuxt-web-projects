@@ -59,20 +59,20 @@ const songList = ref([
   {
     id: 1,
     name: 'hey',
-    audioPath: 'music/hey.mp3',
-    imagePath: 'images/hey.jpg'
+    audioPath: './assets/music/hey.mp3',
+    imagePath: './assets/hey.jpg'
   },
   {
     id: 2,
     name: 'summer',
-    audioPath: 'music/summer.mp3',
-    imagePath: 'images/summer.jpg'
+    audioPath: './assets/music/summer.mp3',
+    imagePath: './assets/summer.jpg'
   },
   {
     id: 3,
     name: 'ukulele',
-    audioPath: 'music/ukulele.mp3',
-    imagePath: 'images/ukulele.jpg'
+    audioPath: './assets/music/ukulele.mp3',
+    imagePath: './assets/ukulele.jpg'
   }
 ]);
 
@@ -80,14 +80,13 @@ const currentSong = ref(null)
 const audio = ref()
 const isPlay = ref(false)
 const progress = ref(null)
-const route = useRoute()
 
 const imagePath = computed(()=> {
-  return dynamicLocalPath(route.path,currentSong.value.imagePath)
+  return currentSong.value.imagePath
 })
 
 const musicPath = computed(()=> {
-  return dynamicLocalPath(route.path,currentSong.value.audioPath)
+  return currentSong.value.audioPath
 })
 
 function playSong(){

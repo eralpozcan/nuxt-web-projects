@@ -14,51 +14,51 @@ useSeoMeta({
 const speechTextData = ref(
 [
   {
-    image: 'images/drink.jpg',
+    image: 'assets/speech-text-reader/drink.jpg',
     text: "I'm Thirsty"
   },
   {
-    image: 'images/food.jpg',
+    image: 'assets/speech-text-reader/food.jpg',
     text: "I'm Hungry"
   },
   {
-    image: 'images/tired.jpg',
+    image: 'assets/speech-text-reader/tired.jpg',
     text: "I'm Tired"
   },
   {
-    image: 'images/hurt.jpg',
+    image: 'assets/speech-text-reader/hurt.jpg',
     text: "I'm Hurt"
   },
   {
-    image: 'images/happy.jpg',
+    image: 'assets/speech-text-reader/happy.jpg',
     text: "I'm Happy"
   },
   {
-    image: 'images/angry.jpg',
+    image: 'assets/speech-text-reader/angry.jpg',
     text: "I'm Angry"
   },
   {
-    image: 'images/sad.jpg',
+    image: 'assets/speech-text-reader/sad.jpg',
     text: "I'm Sad"
   },
   {
-    image: 'images/scared.jpg',
+    image: 'assets/speech-text-reader/scared.jpg',
     text: "I'm Scared"
   },
   {
-    image: 'images/outside.jpg',
+    image: 'assets/speech-text-reader/outside.jpg',
     text: 'I Want To Go Outside'
   },
   {
-    image: 'images/home.jpg',
+    image: 'assets/speech-text-reader/home.jpg',
     text: 'I Want To Go Home'
   },
   {
-    image: 'images/school.jpg',
+    image: 'assets/speech-text-reader/school.jpg',
     text: 'I Want To Go To School'
   },
   {
-    image: 'images/grandma.jpg',
+    image: 'assets/speech-text-reader/grandma.jpg',
     text: 'I Want To Go To Grandmas'
   }
 ])
@@ -115,7 +115,7 @@ onMounted(() => {
       </div>
       <main>
         <div v-for="(data,index) in speechTextData" :key="index" class="box" @click="speakText(data.text)" >
-          <img :src="dynamicLocalPath($route.path,data.image)" :alt="data.text"/>
+          <img :src="data.image" :alt="data.text"/>
           <p class="info"> {{  data.text }} </p>
         </div>
       </main>
