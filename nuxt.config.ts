@@ -23,11 +23,5 @@ export default defineNuxtConfig({
     '/*/components/*': { redirect: '/' },
     '/*/assets/*': { redirect: '/' },
   },
-  security: {
-    rateLimiter: {
-      tokensPerInterval: 100,
-      interval: 10000,
-    }
-  },
-  modules: ['@vueuse/nuxt', "@nuxt/fonts", "@nuxt/image", "nuxt-security"],
+  modules: ['@vueuse/nuxt', "@nuxt/fonts", "@nuxt/image"],
 })

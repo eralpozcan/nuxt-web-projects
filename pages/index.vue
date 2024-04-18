@@ -102,7 +102,7 @@ const projects = ref([
     id: 11,
     name: 'Infinite Scroll Posts',
     description: 'CSS Loader, setTimeout, Async/Await',
-    routeName: 'infinite-scroll-posts',
+    routeName: 'infinite-scroll-blog',
     image: '11.png'
   },
   {
