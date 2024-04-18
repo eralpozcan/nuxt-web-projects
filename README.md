@@ -1,75 +1,19 @@
-# Nuxt 3 Minimal Starter
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+![Nuxt](./public/assets/docsbrand.png)
 
-## Setup
 
-Make sure to install the dependencies:
 
-```bash
-# npm
-npm install
+> This repository using [Nuxt 3](https://github.com/nuxt/nuxt), [Vue 3](https://github.com/vuejs/core), [Image Module](https://v1.image.nuxtjs.org), [Nuxt Fonts](https://github.com/nuxt/fonts), [VueUse](https://github.com/vueuse/vueuse)
 
-# pnpm
-pnpm install
 
-# yarn
-yarn install
 
-# bun
-bun install
-```
 
-## Development Server
+These projects and site examples are inspired by Vanilla Web Projects created by [TraversyMedia](https://www.traversymedia.com/). The content here is an adaptation of the same projects for Nuxt 3. 
 
-Start the development server on `http://localhost:3000`:
+I think it is important to keep the projects faithful to the original, because I am not the real creator. But if you have a better structure or solution that fits Nuxt 3 or Vue 3, you can contribute without changing the purpose of the projects.
 
-```bash
-# npm
-npm run dev
 
-# pnpm
-pnpm run dev
+- [Original Vanilla Web Projects](https://vanillawebprojects.com/)
+- [Original Github Repository](https://github.com/bradtraversy/vanillawebprojects)
 
-# yarn
-yarn dev
 
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

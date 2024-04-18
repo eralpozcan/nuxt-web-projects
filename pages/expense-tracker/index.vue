@@ -1,55 +1,13 @@
-<template>
-  <div class="expense-tracker">
-    <h2>Expense Tracker</h2>
-    <div class="container">
-      <h4>Your Balance</h4>
-      <h1 id="balance">$ {{ balanceTotal }}</h1>
-      <div class="inc-exp-container">
-        <div>
-          <h4>Income</h4>
-          <p class="money plus">+${{incomeTotal}}</p>
-        </div>
-        <div>
-          <h4>Expense</h4>
-          <p class="money minus">-${{expensesTotal }}</p>
-        </div>
-      </div>
-      <h3>History</h3>
-      <ul id="list" class="list">
-        <li v-for="(transact,index) in transactions" :key="index" :class="[transact.amount > 0 ? 'plus' : 'minus']">
-          <span>{{ transact.text }}</span>
-          <span>{{ transact.amount < 0 ? '-' : '+'}} $ {{ Math.abs(transact.amount) }}</span>
-          <button class="delete-btn" @click="removeTransaction(transact.id)">x</button>
-        </li>
-      </ul>
-
-      <h3>Add new transaction</h3>
-      <form id="form" @submit.prevent="addTransaction">
-        <div class="form-control">
-          <label for="text">Text</label>
-          <input type="text" v-model.trim="textInput" placeholder="Enter text..." />
-        </div>
-        <div class="form-control">
-          <label for="amount">Amount <br />
-            (negative - expense, positive - income)</label>
-          <input type="number" v-model.trim="amountInput" placeholder="Enter amount..." />
-        </div>
-        <button class="btn">Add transaction</button>
-      </form>
-    </div>
-  </div>
-</template>
-
 <script setup>
 import { useStorage } from '@vueuse/core'
 useSeoMeta({
 	title: 'Expense Tracker',
-  description: 'This is a simple Expense Tracker'
-})
-useHead({
-	htmlAttrs: {
-		lang: 'en'
-	}
+  description: 'This is a simple Expense Tracker',
+  keywords: 'expense, tracker, nuxt, vue',
+  twitterTitle: 'Expense Tracker',
+  twitterDescription: 'This is a simple Expense Tracker',
+  ogTitle: 'Expense Tracker',
+  ogDescription: 'This is a simple Expense Tracker',
 })
 
 const textInput = ref('')
@@ -98,6 +56,49 @@ onMounted(() => {
   if (transactions.value == null) transactions.value = state.value
 })
 </script>
+
+<template>
+  <div class="expense-tracker">
+    <h2>Expense Tracker</h2>
+    <div class="container">
+      <h4>Your Balance</h4>
+      <h1 id="balance">$ {{ balanceTotal }}</h1>
+      <div class="inc-exp-container">
+        <div>
+          <h4>Income</h4>
+          <p class="money plus">+${{incomeTotal}}</p>
+        </div>
+        <div>
+          <h4>Expense</h4>
+          <p class="money minus">-${{expensesTotal }}</p>
+        </div>
+      </div>
+      <h3>History</h3>
+      <ul id="list" class="list">
+        <li v-for="(transact,index) in transactions" :key="index" :class="[transact.amount > 0 ? 'plus' : 'minus']">
+          <span>{{ transact.text }}</span>
+          <span>{{ transact.amount < 0 ? '-' : '+'}} $ {{ Math.abs(transact.amount) }}</span>
+          <button class="delete-btn" @click="removeTransaction(transact.id)">x</button>
+        </li>
+      </ul>
+
+      <h3>Add new transaction</h3>
+      <form id="form" @submit.prevent="addTransaction">
+        <div class="form-control">
+          <label for="text">Text</label>
+          <input type="text" v-model.trim="textInput" placeholder="Enter text..." />
+        </div>
+        <div class="form-control">
+          <label for="amount">Amount <br />
+            (negative - expense, positive - income)</label>
+          <input type="number" v-model.trim="amountInput" placeholder="Enter amount..." />
+        </div>
+        <button class="btn">Add transaction</button>
+      </form>
+    </div>
+  </div>
+</template>
+
 
 <style scoped>
 .expense-tracker {

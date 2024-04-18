@@ -1,3 +1,96 @@
+<script setup>
+useSeoMeta({
+	title: 'Hangman',
+  description: 'This is a simple Hangman-Game',
+  keywords: 'hangman, game, nuxt, vue',
+  twitterTitle: 'Hangman',
+  twitterDescription: 'This is a simple Hangman-Game',
+  ogTitle: 'Hangman',
+  ogDescription: 'This is a simple Hangman-Game',
+})
+
+const words = ref(['application','programming','interface','wizard'])
+const selectedWord = ref(words.value[Math.floor(Math.random() * words.value.length)].split(''))
+const playable = ref(true)
+const correctLetters = ref([])
+const wrongLetters = ref([])
+const isShowNotification = ref(false)
+const figureParts = ref(null)
+const isWon = ref(false)
+
+const isFailed = computed(()=> {
+  if (wrongLetters.value?.length === figureParts.value?.length) {
+    playable.value = false
+    return true
+  } else return false
+})
+
+function showNotification() {
+	isShowNotification.value = true
+	setTimeout(() => {
+		isShowNotification.value = false
+	},2000);
+}
+
+function updateWrongLetters() {
+	figureParts.value.forEach((part, index) => {
+		const errors = wrongLetters.value.length;
+		if (index < errors) part.style.display = 'block';
+		else part.style.display = 'none';
+	});
+}
+
+function selectWord() {
+  selectedWord.value = words.value[Math.floor(Math.random() * words.value.length)].split('');
+}
+
+function playAgain() {
+  playable.value = true
+  correctLetters.value = []
+  wrongLetters.value = []
+  isWon.value = false
+  updateWrongLetters()
+  selectWord()
+}
+
+function isValidKey(key) {
+  return /[a-z']/.test(key);
+}
+
+function isWordGuessed() {
+  return selectedWord.value.every(letter => correctLetters.value.includes(letter));
+}
+
+onMounted(()=> {
+  figureParts.value = document.querySelectorAll(".figure-part")
+})
+
+useEventListener(document, 'keydown', (e) => {
+  if (!playable.value || isWon.value || isFailed.value) return;
+  const keyPressed = e.key.toLowerCase();
+  if (!isValidKey(keyPressed)) {
+    showNotification();
+    return;
+  }
+  if (selectedWord.value.includes(keyPressed)) {
+    if (!correctLetters.value.includes(keyPressed)) {
+      correctLetters.value.push(keyPressed);
+    } else {
+      showNotification();
+    }
+  } else if (!wrongLetters.value.includes(keyPressed)) {
+    wrongLetters.value.push(keyPressed);
+    updateWrongLetters();
+  } else {
+    showNotification();
+  }
+  if (isWordGuessed()) {
+    isWon.value = true;
+  }
+});
+
+</script>
+
 <template>
 	<div class="hangman-game">
 		<h1>Hangman</h1>
@@ -54,87 +147,6 @@
 		</div>
 	</div>
 </template>
-
-<script setup>
-useSeoMeta({
-	title: 'Hangman',
-  description: 'This is a simple Hangman-Game'
-})
-useHead({
-	htmlAttrs: {
-		lang: 'en'
-	}
-})
-const words = ref(['application','programming','interface','wizard'])
-const selectedWord = ref(words.value[Math.floor(Math.random() * words.value.length)].split(''))
-const playable = ref(true)
-const correctLetters = ref([])
-const wrongLetters = ref([])
-const isShowNotification = ref(false)
-const figureParts = ref(null)
-const isWon = ref(false)
-
-
-function showNotification() {
-	isShowNotification.value = true
-	setTimeout(() => {
-		isShowNotification.value = false
-	},2000);
-}
-
-function updateWrongLetters() {
-	figureParts.value.forEach((part, index) => {
-		const errors = wrongLetters.value.length;
-		if (index < errors) part.style.display = 'block';
-		else part.style.display = 'none';
-	});
-}
-
-function selectWord() {
-  selectedWord.value = words.value[Math.floor(Math.random() * words.value.length)].split('');
-}
-
-function playAgain() {
-  playable.value = true
-  correctLetters.value = []
-  wrongLetters.value = []
-  isWon.value = false
-  updateWrongLetters()
-  selectWord()
-}
-
-const isFailed = computed(()=> {
-  if (wrongLetters.value?.length === figureParts.value?.length) {
-    playable.value = false
-    return true
-  } else return false
-})
-onMounted(()=> {
-  figureParts.value = document.querySelectorAll(".figure-part")
-})
-
-useEventListener(document, 'keydown', (e) => {
-	if(playable.value && !isWon.value && !isFailed.value) {
-		if(e.keyCode >= 65 && e.keyCode <=90 || e.keyCode === 222){
-			const letter = e.key.toLowerCase()
-      correctLetters.value = selectedWord.value.map(letter => correctLetters.value.includes(letter) ? letter : '')
-			if (selectedWord.value.includes(letter)){
-				if (!correctLetters.value.includes(letter)) {
-					correctLetters.value.push(letter)
-				} else showNotification()
-			} else if (!wrongLetters.value.includes(letter)) {
-          wrongLetters.value.push(letter)
-          updateWrongLetters()
-        } else showNotification()
-      if (correctLetters.value.join('') == selectedWord.value.join('')) {
-        isWon.value = true
-      }
-		} 
-	}
-});
-
-
-</script>
 
 <style scoped>
 .hangman-game {

@@ -1,58 +1,14 @@
-<template>
-    <div class="meal-finder">
-      <div class="container">
-        <h1>Meal Finder</h1>
-        <div class="flex">
-          <form class="flex" @submit.prevent="searchMealByName">
-            <input
-              id="search"
-              type="text"
-              v-model.trim="search"
-              placeholder="Search for meals or keywords"
-            />
-            <button class="search-btn" type="submit">
-              <i class="fas fa-search"></i>
-            </button>
-          </form>
-
-          <button class="random-btn" @click="getRandomMeal">
-            <i class="fas fa-random"></i>
-          </button>
-        </div>
-
-        <div id="result-heading">
-          <h2 v-if="result"> Search results for {{result}}:</h2>
-        </div>
-        <div v-if="!isRandom" class="meals">
-          <div class="meal" v-for="(meal,index) in meals" :key="index">
-            <NuxtImg :src="meal.strMealThumb" :alt="meal.strMeal" loading="lazy" />
-            <div class="meal-info" @click="getMealById(meal.idMeal)">
-              <h3> {{ meal.strMeal }}</h3>
-            </div>
-          </div>
-        </div>
-        <div v-if="isRandom" class="single-meal">
-          <h1> {{ meals.strMeal }}</h1>
-          <NuxtImg :src="meals.strMealThumb" :alt="meals.strMeal" loading="lazy"/>
-          <div class="single-meal-info">
-            <p v-if="meals.strCategory"> {{ meals.strCategory }}</p>
-            <p v-if="meals.strArea"> {{ meals.strArea }}</p>
-          </div>
-          <div class="main">
-            <p>{{ meals.strInstructions }}</p>
-            <h2>Ingredients</h2>
-            <ul>
-              <li v-for="ingredient in ingredients" :key="ingredient">{{ ingredient }}</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-</template>
-
 <script setup>
 useSeoMeta({
   title: 'Meal Finder App',
+  description: 'Meal Finder App',
+  keywords: 'meal, finder, vue, vite, nuxt,',
+  twitterTitle: 'Meal Finder App',
+  twitterDescription: 'Meal Finder App',
+  twitterCard: 'summary',
+  ogDescription: 'Meal Finder App',
+  ogTitle: 'Meal Finder App',
+  ogType: 'website',
 })
 useHead({
 	htmlAttrs: {
@@ -72,7 +28,6 @@ const result = ref('')
 const meals = ref(null)
 const isRandom = ref(false)
 const ingredients = ref([])
-
 
 function initDetailPage(data){
   meals.value = data.meals[0]
@@ -113,6 +68,58 @@ async function getRandomMeal() {
   initDetailPage(data)
 }
 </script>
+
+<template>
+  <div class="meal-finder">
+    <div class="container">
+      <h1>Meal Finder</h1>
+      <div class="flex">
+        <form class="flex" @submit.prevent="searchMealByName">
+          <input
+            id="search"
+            type="text"
+            v-model.trim="search"
+            placeholder="Search for meals or keywords"
+          />
+          <button class="search-btn" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+
+        <button class="random-btn" @click="getRandomMeal">
+          <i class="fas fa-random"></i>
+        </button>
+      </div>
+
+      <div id="result-heading">
+        <h2 v-if="result"> Search results for {{result}}:</h2>
+      </div>
+      <div v-if="!isRandom" class="meals">
+        <div class="meal" v-for="(meal,index) in meals" :key="index">
+          <NuxtImg :src="meal.strMealThumb" :alt="meal.strMeal" loading="lazy" />
+          <div class="meal-info" @click="getMealById(meal.idMeal)">
+            <h3> {{ meal.strMeal }}</h3>
+          </div>
+        </div>
+      </div>
+      <div v-if="isRandom" class="single-meal">
+        <h1> {{ meals.strMeal }}</h1>
+        <NuxtImg :src="meals.strMealThumb" :alt="meals.strMeal" loading="lazy"/>
+        <div class="single-meal-info">
+          <p v-if="meals.strCategory"> {{ meals.strCategory }}</p>
+          <p v-if="meals.strArea"> {{ meals.strArea }}</p>
+        </div>
+        <div class="main">
+          <p>{{ meals.strInstructions }}</p>
+          <h2>Ingredients</h2>
+          <ul>
+            <li v-for="ingredient in ingredients" :key="ingredient">{{ ingredient }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .meal-finder {

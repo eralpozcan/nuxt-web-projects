@@ -14,12 +14,15 @@
 
 <script setup>
 useSeoMeta({
-	title: 'Relaxer App',
-})
-useHead({
-	htmlAttrs: {
-		lang: 'en'
-	}
+  title: 'Relaxer App',
+  description: 'Relaxer App',
+  keywords: 'relaxer, app, vue, vite, nuxt,',
+  twitterTitle: 'Relaxer App',
+  twitterDescription: 'Relaxer App',
+  twitterCard: 'summary',
+  ogDescription: 'Relaxer App',
+  ogTitle: 'Relaxer App',
+  ogType: 'website',
 })
 const textData = ref('Breathe In!');
 const totalTime = 7500;

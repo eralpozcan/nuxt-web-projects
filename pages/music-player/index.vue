@@ -30,9 +30,16 @@
 </template>
 
 <script setup>
-
 useSeoMeta({
 	title: 'Music Player',
+  description: 'Music Player',
+  keywords: 'music, player, vue, vite, nuxt,',
+  twitterTitle: 'Music Player',
+  twitterDescription: 'Music Player',
+  twitterCard: 'summary',
+  ogDescription: 'Music Player',
+  ogTitle: 'Music Player',
+  ogType: 'website',
 })
 useHead({
 	htmlAttrs: {

@@ -1,26 +1,17 @@
-<template>
-  <div class="custom-video-player">
-    <h1>Custom Video Player</h1>
-    <video ref="video" poster="./assets/poster.webp" preload="metadata">
-      <source src="./assets/gone.mp4" type="video/mp4" />
-    </video>
-    <div class="controls">
-      <button class="btn" ref="play" @click="toggleVideoStatus()" aria-label="play">
-        <i class="fa fa-2x" :class="{ 'fa-play': !isPaused, 'fa-pause': isPaused }"></i>
-      </button>
-      <button class="btn" ref="stop" @click="stopVideo()" aria-label="stop">
-        <i class="fa fa-stop fa-2x"></i>
-      </button>
-      <input type="range" ref="progress" class="progress" min="0" max="100" step="0.1" value="0" aria-label="progress" />
-      <span class="timestamp" ref="timestamp">00:00</span>
-    </div>
-  </div>
-</template>
 
 <script setup>
 useSeoMeta({
   title: 'Custom Video Player',
+  description: 'Custom video player built with Nuxt',
+  keywords: 'video, player, vue, vite, nuxt,',
+  twitterTitle: 'Custom Video Player',
+  twitterDescription: 'Custom video player built with Nuxt',
+  twitterCard: 'summary',
+  ogDescription: 'Custom video player built with Nuxt',
+  ogTitle: 'Custom Video Player',
+  ogType: 'website',
 })
+
 useHead({
   htmlAttrs: {
     lang: 'en'
@@ -79,6 +70,25 @@ watch(video, () => {
 })
 useEventListener('change', setVideoProgress, progress)
 </script>
+
+<template>
+  <div class="custom-video-player">
+    <h1>Custom Video Player</h1>
+    <video ref="video" poster="./assets/poster.webp" preload="metadata">
+      <source src="./assets/gone.mp4" type="video/mp4" />
+    </video>
+    <div class="controls">
+      <button class="btn" ref="play" @click="toggleVideoStatus()" aria-label="play">
+        <i class="fa fa-2x" :class="{ 'fa-play': !isPaused, 'fa-pause': isPaused }"></i>
+      </button>
+      <button class="btn" ref="stop" @click="stopVideo()" aria-label="stop">
+        <i class="fa fa-stop fa-2x"></i>
+      </button>
+      <input type="range" ref="progress" class="progress" min="0" max="100" step="0.1" value="0" aria-label="progress" />
+      <span class="timestamp" ref="timestamp">00:00</span>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .custom-video-player {

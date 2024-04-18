@@ -4,7 +4,6 @@ const props = defineProps({
 });
 
 const emits = defineEmits(['toggleRules']);
-
 const closeButton = () => {
   emits('toggleRules');
 };

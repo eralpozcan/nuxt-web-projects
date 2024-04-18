@@ -1,38 +1,16 @@
-<template>
-  <div class="speech-text-reader">
-    <div class="container">
-      <h1>Speech Text Reader</h1>
-      <button class="btn btn-toggle" @click="toogleTextBox">
-        Toggle Text Box
-      </button>
-      <div class="text-box" :class="{'show': textBoxToggle}">
-        <div class="close" @click="toogleTextBox">X</div>
-        <h3>Choose Voice</h3>
-        <select v-model="selectedVoice">
-          <option v-for="(voice,index) in voices" :key="index" :value="voice.name"> {{ voice.name + voice.lang }}</option>
-        </select>
-        <textarea id="text" placeholder="Enter text to read..." v-model="textArea"></textarea>
-        <button class="btn" @click="readText">Read Text</button>
-      </div>
-      <main>
-        <div v-for="(data,index) in speechTextData" :key="index" class="box" @click="speakText(data.text)" >
-          <img :src="dynamicLocalPath($route.path,data.image)" :alt="data.text"/>
-          <p class="info"> {{  data.text }} </p>
-        </div>
-      </main>
-    </div>
-  </div>
-</template>
-
 <script setup>
 useSeoMeta({
 	title: 'Speech Text Reader',
+  description: 'Speech Text Reader',
+  keywords: 'speech, text, reader, vue, vite, nuxt,',
+  twitterTitle: 'Speech Text Reader',
+  twitterDescription: 'Speech Text Reader',
+  twitterCard: 'summary',
+  ogDescription: 'Speech Text Reader',
+  ogTitle: 'Speech Text Reader',
+  ogType: 'website',
 })
-useHead({
-	htmlAttrs: {
-		lang: 'en'
-	}
-})
+
 const speechTextData = ref(
 [
   {
@@ -84,7 +62,6 @@ const speechTextData = ref(
     text: 'I Want To Go To Grandmas'
   }
 ])
-
 const voices = ref([]);
 const textBoxToggle = ref(false);
 const textArea = ref('');
@@ -114,13 +91,37 @@ function readText() {
 
 onMounted(() => {
   getVoices();
-  if (speechSynthesis.onvoiceschanged !== undefined) {
+  if (speechSynthesis.onvoiceschanged != undefined) {
     speechSynthesis.onvoiceschanged = getVoices;
   }
 });
-
-
 </script>
+
+<template>
+  <div class="speech-text-reader">
+    <div class="container">
+      <h1>Speech Text Reader</h1>
+      <button class="btn btn-toggle" @click="toogleTextBox">
+        Toggle Text Box
+      </button>
+      <div class="text-box" :class="{'show': textBoxToggle}">
+        <div class="close" @click="toogleTextBox">X</div>
+        <h3>Choose Voice</h3>
+        <select v-model="selectedVoice">
+          <option v-for="(voice,index) in voices" :key="index" :value="voice.name"> {{ voice.name + voice.lang }}</option>
+        </select>
+        <textarea id="text" placeholder="Enter text to read..." v-model="textArea"></textarea>
+        <button class="btn" @click="readText">Read Text</button>
+      </div>
+      <main>
+        <div v-for="(data,index) in speechTextData" :key="index" class="box" @click="speakText(data.text)" >
+          <img :src="dynamicLocalPath($route.path,data.image)" :alt="data.text"/>
+          <p class="info"> {{  data.text }} </p>
+        </div>
+      </main>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .speech-text-reader {

@@ -1,3 +1,68 @@
+<script setup>
+import { useStorage } from '@vueuse/core'
+useSeoMeta({
+	title: 'Memory Cards',
+  description: 'Memory Cards',
+  keywords: 'memory, cards, vue, vite, nuxt,',
+  twitterTitle: 'Memory Cards',
+  twitterDescription: 'Memory Cards',
+  twitterCard: 'summary',
+  ogDescription: 'Memory Cards',
+  ogTitle: 'Memory Cards',
+  ogType: 'website',
+})
+useHead({
+	htmlAttrs: {
+		lang: 'en'
+	},
+	link: [
+    {
+			rel: 'stylesheet',
+			href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css',
+			integrity: 'sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=',
+			crossorigin: 'anonymous'
+		}
+	]
+})
+
+const questionInput = ref('');
+const answerInput = ref('');
+const currentCardActive = ref(0);
+const cardsData = ref([]);
+const cardsDataStorage = useStorage('cards', cardsData, localStorage)
+const addCardContainer = ref(false);
+const showAnswer = ref(false);
+
+function cardFlip() {
+  showAnswer.value = !showAnswer.value;
+}
+
+function prevNav() {
+  if (currentCardActive.value > 0) currentCardActive.value--;
+}
+function nextNav() {
+  if (currentCardActive.value < cardsData.value.length - 1) currentCardActive.value++;
+}
+
+function addNewCard() {
+  if (questionInput.value && answerInput.value) {
+    const newCard = {
+      question: questionInput.value,
+      answer: answerInput.value
+    };
+    cardsData.value.push(newCard);
+    addCardContainer.value = false;
+  }
+}
+
+function clearCards() {
+  cardsData.value = [];
+}
+function addCardContainerToggle() {
+  addCardContainer.value = !addCardContainer.value;
+}
+</script>
+
 <template>
   <div class="memory-cards">
     <button class="clear btn" @click="clearCards">
@@ -72,69 +137,6 @@
   </div>
 </template>
 
-<script setup>
-import { useStorage } from '@vueuse/core'
-
-useSeoMeta({
-	title: 'Memory Cards',
-})
-useHead({
-	htmlAttrs: {
-		lang: 'en'
-	},
-	link: [
-    {
-			rel: 'stylesheet',
-			href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css',
-			integrity: 'sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=',
-			crossorigin: 'anonymous'
-		}
-	]
-})
-
-
-const questionInput = ref('');
-const answerInput = ref('');
-const currentCardActive = ref(0);
-const cardsData = ref([]);
-const cardsDataStorage = useStorage('cards', cardsData, localStorage)
-const addCardContainer = ref(false);
-const showAnswer = ref(false);
-
-function cardFlip() {
-  showAnswer.value = !showAnswer.value;
-}
-
-function prevNav() {
-  if (currentCardActive.value > 0) {
-    currentCardActive.value--;
-  }
-}
-function nextNav() {
-  if (currentCardActive.value < cardsData.value.length - 1) {
-    currentCardActive.value++;
-  }
-}
-
-function addNewCard() {
-  if (questionInput.value && answerInput.value) {
-    const newCard = {
-      question: questionInput.value,
-      answer: answerInput.value
-    };
-    cardsData.value.push(newCard);
-    addCardContainer.value = false;
-  }
-}
-
-function clearCards() {
-  cardsData.value = [];
-}
-function addCardContainerToggle() {
-  addCardContainer.value = !addCardContainer.value;
-}
-
-</script>
 <style scoped>
 .memory-cards {
   background-color: #fff;

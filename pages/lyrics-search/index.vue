@@ -1,3 +1,48 @@
+
+<script setup>
+useSeoMeta({
+  title: 'Lyrics Search',
+  description: 'Lyrics Search',
+  keywords: 'lyrics, search, vue, vite, nuxt,',
+  twitterTitle: 'Lyrics Search',
+  twitterDescription: 'Lyrics Search',
+  twitterCard: 'summary',
+  ogDescription: 'Lyrics Search',
+  ogTitle: 'Lyrics Search',
+  ogType: 'website',
+})
+const apiURL = 'https://api.lyrics.ovh';
+const search = ref('');
+const songData = ref('');
+const lyrics = ref('');
+const showMore = ref(false);
+const showDetail = {
+  artist: ref(),
+  songTitle: ref('')
+};
+
+async function searchSongs(){
+  if (!search.value) {
+    alert('Please enter a search term');
+    return;
+  }
+  const response = await $fetch(`${apiURL}/suggest/${search.value}`);
+  showMore.value = false;
+  songData.value = response.data;
+}
+
+async function getLyrics(artist, songTitle){
+  const response = await $fetch(`${apiURL}/v1/${artist}/${songTitle}`);
+  showDetail.artist = artist;
+  showDetail.songTitle = songTitle;
+  const lyricsText = response.lyrics.replace(/(\r\n|\r|\n)/g, '<br>');
+  const startIndex = lyricsText.indexOf("Paroles de la chanson"); // Remove Paroles de la chanson from lyrics
+  if (startIndex !== -1) lyrics.value = lyricsText.substring(startIndex + "Paroles de la chanson".length);
+  else lyrics.value = lyricsText;
+  showMore.value = true;
+}
+</script>
+
 <template>
   <div class="lyrics-search">
     <header>
@@ -37,42 +82,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-
-
-const apiURL = 'https://api.lyrics.ovh';
-const search = ref('');
-const songData = ref('');
-const lyrics = ref('');
-const showMore = ref(false);
-const showDetail = {
-  artist: ref(),
-  songTitle: ref('')
-};
-
-async function searchSongs(){
-  if (!search.value) {
-    alert('Please enter a search term');
-    return;
-  }
-  const response = await $fetch(`${apiURL}/suggest/${search.value}`);
-  showMore.value = false;
-  songData.value = response.data;
-}
-
-async function getLyrics(artist, songTitle){
-  const response = await $fetch(`${apiURL}/v1/${artist}/${songTitle}`);
-  showDetail.artist = artist;
-  showDetail.songTitle = songTitle;
-  const lyricsText = response.lyrics.replace(/(\r\n|\r|\n)/g, '<br>');
-  const startIndex = lyricsText.indexOf("Paroles de la chanson"); // Remove Paroles de la chanson from lyrics
-  if (startIndex !== -1) lyrics.value = lyricsText.substring(startIndex + "Paroles de la chanson".length);
-  else lyrics.value = lyricsText;
-  showMore.value = true;
-}
-
-</script>
 
 <style scoped>
 

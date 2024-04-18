@@ -1,3 +1,57 @@
+<script setup>
+import { onClickOutside } from '@vueuse/core'
+useSeoMeta({
+	title: 'My Landing Page',
+  description: 'My Landing Page',
+  keywords: 'landing, page, vue, vite, nuxt,',
+  twitterTitle: 'My Landing Page',
+  twitterDescription: 'My Landing Page',
+  twitterCard: 'summary',
+  ogDescription: 'My Landing Page',
+  ogTitle: 'My Landing Page',
+  ogType: 'website',
+})
+useHead({
+	htmlAttrs: {
+		lang: 'en'
+	},
+	link: [
+    {
+			rel: 'stylesheet',
+			href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css',
+			integrity: 'sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=',
+			crossorigin: 'anonymous'
+		}
+	]
+})
+
+const modal = ref(null)
+const primaryColor = "#30336b";
+const secondaryColor = "#be2edd";
+const modalDuration = "1s";
+const showModal = ref(false)
+const showNavMenu = ref(false)
+
+onClickOutside(
+  modal,
+  () => {
+    showModal.value = false
+  },
+)
+
+function signUp() {
+  showModal.value = true
+}
+
+function showNav() {
+  showNavMenu.value = !showNavMenu.value
+}
+
+function closeModal() {
+  showModal.value = false
+}
+</script>
+
 <template>
   <div class="modal-menu-slider" :class="{'show-nav': showNavMenu}">
     <nav>
@@ -104,54 +158,6 @@
   </div>
 
 </template>
-
-
-<script setup>
-import { onClickOutside } from '@vueuse/core'
-useSeoMeta({
-	title: 'My Landing Page',
-})
-useHead({
-	htmlAttrs: {
-		lang: 'en'
-	},
-	link: [
-    {
-			rel: 'stylesheet',
-			href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css',
-			integrity: 'sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=',
-			crossorigin: 'anonymous'
-		}
-	]
-})
-
-const modal = ref(null)
-const primaryColor = "#30336b";
-const secondaryColor = "#be2edd";
-const modalDuration = "1s";
-const showModal = ref(false)
-const showNavMenu = ref(false)
-
-onClickOutside(
-  modal,
-  () => {
-    showModal.value = false
-  },
-)
-
-function signUp() {
-  showModal.value = true
-}
-
-function showNav() {
-  showNavMenu.value = !showNavMenu.value
-}
-
-function closeModal() {
-  showModal.value = false
-}
-
-</script>
 
 <style scoped>
 .modal-menu-slider {

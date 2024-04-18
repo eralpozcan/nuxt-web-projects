@@ -1,58 +1,18 @@
-<template>
-  <div class="typing-game">
-    <button class="settings-btn" @click="settingsBtn">
-      <i class="fas fa-cog"></i>
-    </button>
 
-    <div v-if="settings" class="settings">
-      <form id="settings-form">
-        <div>
-          <label for="difficulty">Difficulty</label>
-          <select id="difficulty" v-model="difficulty">
-            <option value="easy">Easy</option>
-            <option value="medium">Medium</option>
-            <option value="hard">Hard</option>
-          </select>
-        </div>
-      </form>
-    </div>
-
-    <div class="container">
-      <div v-if="isGameOver">
-        <h2>👩‍💻 Speed Typer 👨‍💻</h2>
-        <small>Type the following:</small>
-
-        <h1> {{ randWord }}</h1>
-
-        <input
-          type="text"
-          id="text"
-          autocomplete="off"
-          placeholder="Type the word here..."
-          autofocus
-          v-model="insertText"
-          @input="inputCheck"
-        />
-
-        <p class="time-container">Time left: <span>{{ time }}s</span></p>
-
-        <p class="score-container">Score: <span>{{ score }}</span></p>
-      </div>
-      <div v-else class="end-game-container">
-        <h1>Time ran out</h1>
-        <p>Your final score is {{score}}</p>
-        <button @click="reload">Reload</button>
-      </div>
-
-    </div>
-  </div>
-</template>
 
 <script setup>
 import { useStorage } from '@vueuse/core'
 
 useSeoMeta({
 	title: 'Typing Game',
+  description: 'Typing Game',
+  keywords: 'typing, game, vue, vite, nuxt,',
+  twitterTitle: 'Typing Game',
+  twitterDescription: 'Typing Game',
+  twitterCard: 'summary',
+  ogDescription: 'Typing Game',
+  ogTitle: 'Typing Game',
+  ogType: 'website',
 })
 useHead({
 	htmlAttrs: {
@@ -114,6 +74,7 @@ function inputCheck() {
     insertText.value = ''
   }
 }
+
 function addTime() {
   const timeToAdd = {
     'hard': 2,
@@ -122,6 +83,7 @@ function addTime() {
   };
   time.value += timeToAdd[difficulty.value];
 }
+
 function updateTime() {
   time.value--;
   if (time.value === 0) {
@@ -130,12 +92,15 @@ function updateTime() {
     isGameOver.value = false
   }
 }
+
 function settingsBtn() {
   settings.value = !settings.value
 }
+
 function reload() {
   location.reload()
 }
+
 onMounted(() => {
   getRandomWord()
 })
@@ -145,8 +110,57 @@ onBeforeUnmount(() => {
 })
 </script>
 
-<style scoped>
+<template>
+  <div class="typing-game">
+    <button class="settings-btn" @click="settingsBtn">
+      <i class="fas fa-cog"></i>
+    </button>
 
+    <div v-if="settings" class="settings">
+      <form id="settings-form">
+        <div>
+          <label for="difficulty">Difficulty</label>
+          <select id="difficulty" v-model="difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+      </form>
+    </div>
+
+    <div class="container">
+      <div v-if="isGameOver">
+        <h2>👩‍💻 Speed Typer 👨‍💻</h2>
+        <small>Type the following:</small>
+
+        <h1> {{ randWord }}</h1>
+
+        <input
+          type="text"
+          id="text"
+          autocomplete="off"
+          placeholder="Type the word here..."
+          autofocus
+          v-model="insertText"
+          @input="inputCheck"
+        />
+
+        <p class="time-container">Time left: <span>{{ time }}s</span></p>
+
+        <p class="score-container">Score: <span>{{ score }}</span></p>
+      </div>
+      <div v-else class="end-game-container">
+        <h1>Time ran out</h1>
+        <p>Your final score is {{score}}</p>
+        <button @click="reload">Reload</button>
+      </div>
+
+    </div>
+  </div>
+</template>
+
+<style scoped>
 .typing-game {
   background-color: #2c3e50;
   display: flex;

@@ -11,6 +11,8 @@
             id="search"
             class="bg-gray-700 rounded-full p-2 pl-10 transition focus:w-full"
             placeholder="Search products..."
+            v-model="search"
+            @input="searchProducts()"
           />
           <svg
             class="absolute left-2 top-1/2 -translate-y-1/2"
@@ -62,30 +64,32 @@
       <div class="space-y-4 p-2 w-full md:max-w-[10rem]">
         <h2 class="text-2xl">Filters</h2>
         <h3 class="text-xl mb-2">Category</h3>
-        <div id="filters-container" class="text-xl space-y-2">
-            <input type="checkbox" class="check mr-1"/>
-            <label for="cameras">Cameras</label>
+        <div class="text-xl space-y-2">
           <div>
-            <input type="checkbox" class="check mr-1"/>
+            <input type="checkbox" class="check mr-1" id="cameras" v-model="selectedCategories" value="cameras" />
+            <label for="cameras">Cameras</label>
+          </div>
+          <div>
+            <input type="checkbox" class="check mr-1" id="smartphones" v-model="selectedCategories" value="smartphones" />
             <label for="smartphones">Smartphones</label>
           </div>
           <div>
-            <input type="checkbox" class="check mr-1"/>
+            <input type="checkbox" class="check mr-1" id="games" v-model="selectedCategories" value="games" />
             <label for="games">Games</label>
           </div>
           <div>
-            <input type="checkbox" class="check mr-1"/>
+            <input type="checkbox" class="check mr-1" id="televisions" v-model="selectedCategories" value="televisions" />
             <label for="televisions">Televisions</label>
           </div>
         </div>
       </div>
 
       <!-- Products wrapper -->
-      <div class="w-full max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-6 place-content-center p-4" >
-        <div class="item space-y-2" v-for="product in products">
+      <div class="w-full h-full max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-6 place-content-center p-4" >
+        <div class="item space-y-2" v-for="product in myProducts">
           <div class="bg-gray-200 rounded flex justify-center relative overflow-hidden group cursor-pointer border"> 
             <img :src="dynamicLocalPath($route.path,product.url)" :alt="product.name" class="w-full h-full object-cover" />
-            <span class="status bg-black text-white absolute bottom-0 left-0 right-0 text-center py-2 translate-y-full transition group-hover:translate-y-0" @click="addToCart()"> Add To Cart</span>
+            <span class="status text-white absolute bottom-0 left-0 right-0 text-center py-2 translate-y-full transition group-hover:translate-y-0" :class="[checkToCart(product.name) ? 'bg-red-600' : 'bg-black']" @click="addToCart(product)"> {{ checkToCart(product.name) ? 'Remove From Cart' : 'Add to Cart' }}</span>
           </div>
           <p class="text-xl">{{product.name}}</p>
           <strong>{{formattedPrice(product.price)}}</strong>
@@ -98,6 +102,14 @@
 <script setup>
 useSeoMeta({
   title: 'Product Filtering',
+  description: 'Product filtering page',
+  keywords: 'product, filtering, vue, vite, nuxt,',
+  twitterTitle: 'Product Filtering',
+  twitterDescription: 'Product filtering page',
+  twitterCard: 'summary',
+  ogDescription: 'Product filtering page',
+  ogTitle: 'Product Filtering',
+  ogType: 'website',
 })
 useHead({
 	htmlAttrs: {
@@ -106,6 +118,8 @@ useHead({
   script: [
     {
       src: 'https://cdn.tailwindcss.com',
+      async: true,
+      defer: true,
     },
   ],
 })
@@ -185,20 +199,43 @@ const products = [
   },
 ];
 
-const cartCount = ref(0);
+const search = ref('');
+const myProducts = ref(products);
+const selectedCategories = ref([]);
+const cartList = ref([]);
+
+
+const cartCount = computed(() => cartList.value.length);
 
 const formattedPrice = (price) => {
   return price.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 }
 
-const addToCart = () => {
-  cartCount.value++;
+const checkToCart = (name) => {
+  return cartList.value.some((product) => product.name === name);
 }
 
-const filterProducts = (type) => {
-  return products.filter((product) => product.type === type);
+const addToCart = (productData) => {
+  const index = cartList.value.findIndex((product) => product.name === productData.name);
+  if (index !== -1) cartList.value.splice(index, 1); 
+  else cartList.value.push(productData);
 }
 
+const filterByCategory = () => {
+  if (selectedCategories.value.length === 0) myProducts.value = products;
+  else myProducts.value = products.filter((product) => selectedCategories.value.includes(product.type)); 
+}
+
+const searchProducts = () => {
+  const searchValue = search.value.toLowerCase();
+  myProducts.value = products.filter((product) => product.name.toLowerCase().includes(searchValue));
+}
+
+watch(search, (newValue) => {
+  if (newValue === '') myProducts.value = products;
+});
+
+watch(selectedCategories, filterByCategory, { deep: true });
 
 </script>
 

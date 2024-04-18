@@ -1,17 +1,17 @@
-<template>
-  <div class="breakout">
-    <h1>Breakout!</h1>
-    <button class="btn rules-btn" @click="toggleRules">Show Rules</button>
-    <Sidebar :showContent="showContent" @toggleRules="toggleRules"/>
-    <canvas ref="canvas" id="canvas" width="800" height="600"></canvas>
-  </div>
-</template>
 
 <script setup>
 import Sidebar from './components/Sidebar.vue';
 import { useEventListener } from '@vueuse/core'
 useSeoMeta({
   title: 'Breakout Game',
+  description: 'Breakout Game',
+  keywords: 'breakout, game, vue, vite, nuxt,',
+  twitterTitle: 'Breakout Game',
+  twitterDescription: 'Breakout Game',
+  twitterCard: 'summary',
+  ogDescription: 'Breakout Game',
+  ogTitle: 'Breakout Game',
+  ogType: 'website',
 })
 
 const showContent = ref(false);
@@ -245,8 +245,16 @@ useEventListener(document, 'keyup', (e) => {
 });
 </script>
 
-<style scoped>
+<template>
+  <div class="breakout">
+    <h1>Breakout!</h1>
+    <button class="btn rules-btn" @click="toggleRules">Show Rules</button>
+    <Sidebar :showContent="showContent" @toggleRules="toggleRules"/>
+    <canvas ref="canvas" id="canvas" width="800" height="600"></canvas>
+  </div>
+</template>
 
+<style scoped>
 /* aka body element  */
 .breakout {
   background-color: #0095dd;

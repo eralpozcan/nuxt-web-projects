@@ -17,6 +17,17 @@
 </template>
 
 <script setup>
+useSeoMeta({
+  title: 'Speak Number Guess',
+  description: 'Speak Number Guess',
+  keywords: 'speak, number, guess, vue, vite, nuxt,',
+  twitterTitle: 'Speak Number Guess',
+  twitterDescription: 'Speak Number Guess',
+  twitterCard: 'summary',
+  ogDescription: 'Speak Number Guess',
+  ogTitle: 'Speak Number Guess',
+  ogType: 'website',
+})
 const guessedMessage = ref('Speak the number into your microphone');
 const congratulationMessage = ref('');
 const randomNumber = ref();

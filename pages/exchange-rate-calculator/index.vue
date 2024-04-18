@@ -1,44 +1,15 @@
-<template>
-  <div class="exchange-calculator">
-		<h1>Exchange Rate Calculator</h1>
-		<p>This is a simple exchange rate app that uses the ExchangeRate-API to get the latest exchange rates.</p>
-		<img src="./assets/money.png" alt="ExchangeRate-API Logo" />
-
-		<div class="container"> 
-			<div class="currency">
-				<select v-model="selectedFromCurrency">
-					<option v-for="(value,key) in currencies" :value="key" :key="key">{{ value }}</option>
-				</select>
-				<input type="number" placeholder="0" v-model="fromCurrencyValue" />
-			</div>
-
-			<div class="swap-rate-container">
-        <button class="btn" @click="calculate">
-          Swap
-        </button>
-        <div class="rate">{{ currencyRate }}</div>
-      </div>
-
-			<div class="currency">
-				<select v-model="selectedToCurrency">
-					<option v-for="(value,key) in currencies" :value="key" :key="key">{{ value }}</option>
-				</select>
-				<input type="number" placeholder="0" v-model="toCurrencyValue" />
-			</div>
-		</div>
-  </div>
-</template>
-
 <script setup>
 import currenciesData from './assets/currencies.json'
 useSeoMeta({
 	title: 'Exchange Rate Calculator',
-  description: 'This is a simple exchange rate app that uses the ExchangeRate-API to get the latest exchange rates.'
-})
-useHead({
-	htmlAttrs: {
-		lang: 'en'
-	}
+  description: 'This is a simple exchange rate app that uses the ExchangeRate-API to get the latest exchange rates.',
+  keywords: 'exchange rate, currency, exchange rate calculator',
+  twitterTitle: 'Exchange Rate Calculator',
+  twitterDescription: 'This is a simple exchange rate app that uses the ExchangeRate-API to get the latest exchange rates.',
+  twitterCard: 'summary',
+  ogDescription: 'Exchange Rate Calculator',
+  ogTitle: 'Exchange Rate Calculator',
+  ogType: 'website',
 })
 
 const selectedFromCurrency = ref('USD')
@@ -85,6 +56,37 @@ onMounted(() => {
 	calculate()
 })
 </script>
+
+<template>
+  <div class="exchange-calculator">
+		<h1>Exchange Rate Calculator</h1>
+		<p>This is a simple exchange rate app that uses the ExchangeRate-API to get the latest exchange rates.</p>
+		<img src="./assets/money.png" alt="ExchangeRate-API Logo" />
+
+		<div class="container"> 
+			<div class="currency">
+				<select v-model="selectedFromCurrency">
+					<option v-for="(value,key) in currencies" :value="key" :key="key">{{ value }}</option>
+				</select>
+				<input type="number" placeholder="0" v-model="fromCurrencyValue" />
+			</div>
+
+			<div class="swap-rate-container">
+        <button class="btn" @click="calculate">
+          Swap
+        </button>
+        <div class="rate">{{ currencyRate }}</div>
+      </div>
+
+			<div class="currency">
+				<select v-model="selectedToCurrency">
+					<option v-for="(value,key) in currencies" :value="key" :key="key">{{ value }}</option>
+				</select>
+				<input type="number" placeholder="0" v-model="toCurrencyValue" />
+			</div>
+		</div>
+  </div>
+</template>
 
 <style scoped>
 .exchange-calculator {

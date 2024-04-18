@@ -1,11 +1,14 @@
 <script setup>
 useSeoMeta({
   title: 'Form Validator',
-})
-useHead({
-  htmlAttrs: {
-    lang: 'en'
-  }
+  description: 'Form Validator',
+  keywords: 'form, validator, vue, vite, nuxt,',
+  twitterTitle: 'Form Validator',
+  twitterDescription: 'Form Validator',
+  twitterCard: 'summary',
+  ogDescription: 'Form Validator',
+  ogTitle: 'Form Validator',
+  ogType: 'website',
 })
 
 const successColor = '#2ecc71'
@@ -46,7 +49,6 @@ function checkRequired(inputArr) {
 }
 
 function checkLength(input, min, max) {
-
   if (input.value.value.length < min) {
     showError(
       input,
@@ -63,7 +65,9 @@ function checkLength(input, min, max) {
 }
 
 function checkEmail(input) {
-  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  // Original regex 
+  //const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const re = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
   if (re.test(input.value.value.trim())) {
     showSuccess(input)
   } else {

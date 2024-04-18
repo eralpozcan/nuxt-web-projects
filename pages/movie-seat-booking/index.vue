@@ -1,11 +1,14 @@
 <script setup>
 useSeoMeta({
   title: 'Movie Seat Booking',
-})
-useHead({
-  htmlAttrs: {
-    lang: 'en'
-  }
+  description: 'Movie Seat Booking',
+  keywords: 'movie, seat, booking, vue, vite, nuxt,',
+  twitterTitle: 'Movie Seat Booking',
+  twitterDescription: 'Movie Seat Booking',
+  twitterCard: 'summary',
+  ogDescription: 'Movie Seat Booking',
+  ogTitle: 'Movie Seat Booking',
+  ogType: 'website',
 })
 
 const movies = ref([

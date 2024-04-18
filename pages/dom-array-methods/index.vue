@@ -1,31 +1,15 @@
-<template>
-  <div class="dom-array-methods">
-    <h1>DOM Array Methods</h1>
-    <div class="container">
-      <aside>
-        <button @click.stop="getRandomUser">Add User 👱‍♂️</button>
-        <button @click.stop="doubleMoney">Double Money 💰</button>
-        <button @click.stop="showMillionaires">Show Only Millionaires 💵</button>
-        <button @click.stop="sortByRichest">Sort by Richest ↓</button>
-        <button @click.stop="calculateWealth">Calculate entire Wealth 🧮</button>
-      </aside>
-      <main id="main">
-        <h2><strong>Person</strong> Wealth</h2>
-        <h2 v-for="(person) in data" :key="person"><strong>{{ person.name }}</strong> {{ formatMoney(person.money) }}</h2>
-        <h3 v-if="totalWealthStatus">Total Wealth: <strong>{{formatMoney(totalWealth)}}</strong></h3>
-      </main>
-    </div>
-  </div>
-</template>
 
 <script setup>
 useSeoMeta({
 	title: 'DOM Array Methods',
-})
-useHead({
-	htmlAttrs: {
-		lang: 'en'
-	}
+  description: 'DOM Array Methods',
+  keywords: 'dom, array, methods, nuxt',
+  twitterTitle: 'DOM Array Methods',
+  twitterDescription: 'DOM Array Methods',
+  twitterCard: 'summary',
+  ogDescription: 'DOM Array Methods',
+  ogTitle: 'DOM Array Methods',
+  ogType: 'website',
 })
 const data = ref([]);
 const totalWealthStatus = ref(false);
@@ -65,6 +49,26 @@ const formatMoney = computed(() => (number) => {
   return '$' + number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
 })
 </script>
+
+<template>
+  <div class="dom-array-methods">
+    <h1>DOM Array Methods</h1>
+    <div class="container">
+      <aside>
+        <button @click.stop="getRandomUser">Add User 👱‍♂️</button>
+        <button @click.stop="doubleMoney">Double Money 💰</button>
+        <button @click.stop="showMillionaires">Show Only Millionaires 💵</button>
+        <button @click.stop="sortByRichest">Sort by Richest ↓</button>
+        <button @click.stop="calculateWealth">Calculate entire Wealth 🧮</button>
+      </aside>
+      <main id="main">
+        <h2><strong>Person</strong> Wealth</h2>
+        <h2 v-for="(person) in data" :key="person"><strong>{{ person.name }}</strong> {{ formatMoney(person.money) }}</h2>
+        <h3 v-if="totalWealthStatus">Total Wealth: <strong>{{formatMoney(totalWealth)}}</strong></h3>
+      </main>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 

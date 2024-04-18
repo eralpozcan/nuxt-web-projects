@@ -1,3 +1,60 @@
+<script setup>
+useSeoMeta({
+	title: 'Infinite Blog',
+  description: 'Infinite Blog App',
+  keywords: 'infinite, blog, vue, vite, nuxt',
+  twitterTitle: 'Infinite Blog',
+  twitterDescription: 'Infinite Blog App',
+  twitterCard: 'summary',
+  ogDescription: 'Infinite Blog App',
+  ogTitle: 'Infinite Blog',
+  ogType: 'website',
+})
+
+const limit = ref(5);
+const page = ref(1);
+const post = ref([]);
+const loading = ref(false);
+const filterInput = ref(''); 
+
+const filteredPosts = computed(() => {
+  return post.value.filter(item => {
+    const title = item.title.toUpperCase();
+    const body = item.body.toUpperCase();
+    const term = filterInput.value.toUpperCase();
+    return title.includes(term) || body.includes(term);
+  });
+});
+
+async function getPost() {
+  loading.value = true;
+  const response = await $fetch(`https://jsonplaceholder.typicode.com/posts?_limit=${limit.value}&_page=${page.value}`);
+  post.value = post.value.concat(response);
+  loading.value = false;
+}
+
+function showLoading() {
+  loading.value = true;
+  setTimeout(() => {
+    loading.value = false;
+    setTimeout(() => {
+      page.value++;
+      getPost();
+    }, 300);
+  }, 1000);
+}
+
+useEventListener(document,'scroll', () => {
+  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+  if (scrollHeight - scrollTop === clientHeight) showLoading();
+});
+
+onMounted(() => {
+  getPost();
+});
+
+</script>
+
 <template>
   <div class="infinite-blog">
     <h1>My Blog</h1>
@@ -34,61 +91,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-useSeoMeta({
-	title: 'Infinite Blog',
-})
-useHead({
-	htmlAttrs: {
-		lang: 'en'
-	}
-})
-
-const limit = ref(5);
-const page = ref(1);
-const post = ref([]);
-const loading = ref(false);
-const filterInput = ref(''); 
-
-const filteredPosts = computed(() => {
-  return post.value.filter(item => {
-    const title = item.title.toUpperCase();
-    const body = item.body.toUpperCase();
-    const term = filterInput.value.toUpperCase();
-
-    return title.includes(term) || body.includes(term);
-  });
-});
-
-async function getPost() {
-  loading.value = true;
-  const response = await $fetch(`https://jsonplaceholder.typicode.com/posts?_limit=${limit.value}&_page=${page.value}`);
-  post.value = post.value.concat(response);
-  loading.value = false;
-}
-
-function showLoading() {
-  loading.value = true;
-  setTimeout(() => {
-    loading.value = false;
-    setTimeout(() => {
-      page.value++;
-      getPost();
-    }, 300);
-  }, 1000);
-}
-
-useEventListener(document,'scroll', () => {
-  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-  if (scrollHeight - scrollTop === clientHeight) showLoading();
-});
-
-onMounted(() => {
-  getPost();
-});
-
-</script>
 
 <style scoped>
 .infinite-blog {

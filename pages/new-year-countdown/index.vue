@@ -33,6 +33,17 @@
 </template>
 
 <script setup>
+useSeoMeta({
+	title: 'New Year Countdown',
+  description: 'New Year Countdown',
+  keywords: 'new year, countdown, vue, vite, nuxt,',
+  twitterTitle: 'New Year Countdown',
+  twitterDescription: 'New Year Countdown',
+  twitterCard: 'summary',
+  ogDescription: 'New Year Countdown',
+  ogTitle: 'New Year Countdown',
+  ogType: 'website',
+})
 const days = ref(0);
 const hours = ref(0);
 const minutes = ref(0);
@@ -41,9 +52,7 @@ const loading = ref(true);
 
 const currentYear = new Date().getFullYear();
 const newYearTime = new Date(`January 1, ${currentYear + 1} 00:00:00`);
-
 let countDownInterval;
-
 function updateCountDown() {
   const currentTime = new Date();
   const diff = newYearTime - currentTime;
