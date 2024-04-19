@@ -59,20 +59,20 @@ const songList = ref([
   {
     id: 1,
     name: 'hey',
-    audioPath: './assets/music/hey.mp3',
-    imagePath: './assets/hey.jpg'
+    audioPath: 'assets/music-player/music/hey.mp3',
+    imagePath: 'assets/music-player/images/hey.jpg'
   },
   {
     id: 2,
     name: 'summer',
-    audioPath: './assets/music/summer.mp3',
-    imagePath: './assets/summer.jpg'
+    audioPath: 'assets/music-player/music/summer.mp3',
+    imagePath: 'assets/music-player/images/summer.jpg'
   },
   {
     id: 3,
     name: 'ukulele',
-    audioPath: './assets/music/ukulele.mp3',
-    imagePath: './assets/ukulele.jpg'
+    audioPath: 'assets/music-player/music/ukulele.mp3',
+    imagePath: 'assets/music-player/images/ukulele.jpg'
   }
 ]);
 
