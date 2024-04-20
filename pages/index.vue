@@ -8,7 +8,7 @@
 				</h2>
         <a href="https://github.com/bradtraversy/vanillawebprojects" class="main-btn" >Original Github Repository</a>
         <a href="https://vanillawebprojects.com/" class="main-btn" >Original Course Site</a>
-        <a href="" class="main-btn" >Github Nuxt 3 Repository</a>
+        <a href="https://github.com/Eralpozcan/nuxt-web-projects" class="main-btn" >Github Nuxt 3 Repository</a>
       </div>
     </header>
 
