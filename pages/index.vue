@@ -26,6 +26,29 @@
 </template>
 
 <script setup>
+useSeoMeta({
+  title: '20+ Web Projects with Nuxt3',
+  lang: 'en_US',
+  description: 'Based on Brad Traversy\'s vanilla web projects repo. This has been adapted to Vue3 and Nuxt3. Some constructs are different because of the adaptation process.',
+  ogType: 'website',
+  ogSiteName: '20+ Web Projects with Nuxt3',
+  ogTitle: '20+ Web Projects with Nuxt',
+  ogDescription: 'Based on Brad Traversy\'s vanilla web projects repo. This has been adapted to Vue3 and Nuxt3. Some constructs are different because of the adaptation process.',
+  ogUrl: 'https://nuxt-web-projects.vercel.app',
+  ogImage: 'https://nuxt-web-projects.vercel.app/assets/docsbrand.png',
+  ogLocale: 'en_US',
+  ogLocaleAlternate: 'en_US',
+  twitterCard: 'summary_large_image',
+  twitterTitle: '20+ Web Projects with Nuxt',
+  twitterDescription: 'Based on Brad Traversy\'s vanilla web projects repo. This has been adapted to Vue3 and Nuxt3. Some constructs are different because of the adaptation process.',
+  twitterImage: 'https://nuxt-web-projects.vercel.app/assets/docsbrand.png',
+  twitterSite: '@yourTwitterHandle' // Replace with your Twitter handle
+})
+
+
+
+
+
 
 const projects = ref([
   {
